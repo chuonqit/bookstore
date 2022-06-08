@@ -7,7 +7,10 @@ SwiperCore.use([Autoplay, Navigation]);
 @Component({
   selector: 'app-home-best-seller',
   templateUrl: './home-best-seller.component.html',
-  styleUrls: ['./home-best-seller.component.scss'],
+  styleUrls: [
+    './home-best-seller.component.scss',
+    './home-best-seller-swipper.component.scss',
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class HomeBestSellerComponent {
