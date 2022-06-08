@@ -20,10 +20,7 @@ export class DetailComponent implements OnInit {
     this.nameAscii = this.activatedRoute$.snapshot.params['nameAscii'];
   }
 
-  quantityIncrease() {
-    this.quantity++;
-  }
-  quantityDecrease() {
-    this.quantity--;
+  addToCart(quantity: number) {
+    console.log(quantity);
   }
 }

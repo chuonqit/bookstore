@@ -1,0 +1,13 @@
+<div class="detail-button">
+  <div class="detail-button-quantity">
+    <button [disabled]="quantity <= 1" (click)="quantityDecrease()">-</button>
+    <input
+      type="number"
+      [(ngModel)]="quantity"
+      #ctrl="ngModel"
+      name="quantity"
+    />
+    <button (click)="quantityIncrease()">+</button>
+  </div>
+  <button (click)="addToCart()">Thêm vào giỏ hàng</button>
+</div>

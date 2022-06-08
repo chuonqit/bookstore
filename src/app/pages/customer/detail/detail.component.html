@@ -47,24 +47,10 @@
           <div class="detail-price-new">$200</div>
           <div class="detail-price-old">$210</div>
         </div>
-        <div class="detail-button">
-          <div class="detail-button-quantity">
-            <button
-              [disabled]="this.quantity <= 1"
-              (click)="quantityDecrease()"
-            >
-              -
-            </button>
-            <input
-              type="number"
-              [(ngModel)]="quantity"
-              #ctrl="ngModel"
-              name="quantity"
-            />
-            <button (click)="quantityIncrease()">+</button>
-          </div>
-          <button>Thêm vào giỏ hàng</button>
-        </div>
+        <app-detail-button
+          [quantity]="quantity"
+          (add-cart)="addToCart($event)"
+        ></app-detail-button>
       </div>
     </div>
 

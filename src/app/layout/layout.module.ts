@@ -10,6 +10,8 @@ import { ManagerToolbarComponent } from './manager-layout/manager-toolbar/manage
 import { ManagerSidenavComponent } from './manager-layout/manager-sidenav/manager-sidenav.component';
 import { ZorroModule } from '../zorro/zorro.module';
 import { SharedModule } from '../shared/shared.module';
+import { ActionsComponent } from './customer-layout/customer-header/actions/actions.component';
+import { CategoriesComponent } from './customer-layout/customer-header/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { SharedModule } from '../shared/shared.module';
     CustomerFooterComponent,
     ManagerToolbarComponent,
     ManagerSidenavComponent,
+    ActionsComponent,
+    CategoriesComponent,
   ],
   imports: [
     CommonModule,

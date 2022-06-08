@@ -1,0 +1,30 @@
+.category-header {
+  margin: 15px 0;
+  & a {
+    color: #333;
+
+    &.active {
+      & span {
+        background-color: #242f9b;
+        color: #ffffff;
+        font-weight: 700;
+      }
+    }
+
+    & span {
+      background-color: #dbdffd;
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+      display: block;
+      text-align: center;
+    }
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+}

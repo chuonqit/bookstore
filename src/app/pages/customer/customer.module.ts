@@ -14,6 +14,7 @@ import { CheckoutComponent } from './shopping-cart/checkout/checkout.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { SearchComponent } from './search/search.component';
+import { DetailButtonComponent } from './detail/detail-button/detail-button.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SearchComponent } from './search/search.component';
     LoginComponent,
     RegisterComponent,
     SearchComponent,
+    DetailButtonComponent,
   ],
   imports: [CommonModule, CustomerRoutingModule, SharedModule, ZorroModule],
 })
