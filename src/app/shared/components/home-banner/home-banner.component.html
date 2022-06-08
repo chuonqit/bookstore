@@ -1,0 +1,19 @@
+<swiper
+  [pagination]="pagination"
+  [autoplay]="{
+    delay: 5000
+  }"
+  [loop]="true"
+  class="c-home--banner"
+>
+  <ng-template swiperSlide *ngFor="let item of banners">
+    <a
+      [href]="item"
+      target="_blank"
+      class="image"
+      style="
+        background-image: url('{{ item }}');
+      "
+    ></a>
+  </ng-template>
+</swiper>

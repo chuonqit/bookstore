@@ -1,0 +1,65 @@
+<div class="category-content">
+  <div class="col-fillter">
+    <nz-card>
+      <div class="col-fillter-item">
+        <div class="col-fillter-item-title">
+          <span>Nhà xuất bản</span>
+          <span *ngIf="params.publisher">
+            <i
+              nz-icon
+              nzType="clear"
+              nzTheme="outline"
+              style="cursor: pointer"
+              (click)="fillterPublisher('')"
+            >
+            </i>
+          </span>
+        </div>
+        <div class="col-fillter-item-list">
+          <ul>
+            <li *ngFor="let publisher of publishers">
+              <a
+                (click)="fillterPublisher(publisher._id)"
+                [class.active]="params.publisher == publisher._id"
+              >
+                {{ publisher.name }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nz-card>
+    <nz-card>
+      <div class="col-fillter-item">
+        <div class="col-fillter-item-title">
+          <span>Tác giả</span>
+          <span *ngIf="params.author">
+            <i
+              nz-icon
+              nzType="clear"
+              nzTheme="outline"
+              style="cursor: pointer"
+              (click)="fillterAuthor('')"
+            >
+            </i>
+          </span>
+        </div>
+        <div class="col-fillter-item-list">
+          <ul>
+            <li *ngFor="let author of authors">
+              <a
+                (click)="fillterAuthor(author._id)"
+                [class.active]="params.author == author._id"
+              >
+                {{ author.name }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div class="col-content">
+    <ng-content></ng-content>
+  </div>
+</div>

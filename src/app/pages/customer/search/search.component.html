@@ -1,0 +1,15 @@
+<div class="container">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a routerLink="/">Trang chủ</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a>Tìm kiếm</a>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+  <div class="c-page-content" style="margin-bottom: 20px">
+    <p>Từ khóa: {{ keyword }}</p>
+    <app-book-list [col]="5"></app-book-list>
+  </div>
+</div>

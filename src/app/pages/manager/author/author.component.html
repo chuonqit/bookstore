@@ -1,0 +1,79 @@
+<nz-card>
+  <div class="button-group">
+    <button (click)="showModal(null)" nz-button nzType="default">
+      Thêm tác giả mới
+    </button>
+  </div>
+  <nz-divider nzType="horizontal"></nz-divider>
+  <nz-table #basicTable [nzData]="authors" [nzPageSize]="8">
+    <thead>
+      <tr>
+        <th>Tác giả</th>
+        <th style="width: 150px">Trạng thái</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.name }}</td>
+        <td>
+          <nz-tag
+            style="cursor: pointer"
+            [nzColor]="data.status ? 'success' : 'default'"
+            (click)="changeStatus(data._id, data.status)"
+          >
+            {{ data.status ? "Hoạt động" : "Không hoạt động" }}
+          </nz-tag>
+        </td>
+        <td>
+          <button nz-button nzType="default" (click)="showModal(data)">
+            Sửa
+          </button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button
+            nz-button
+            nzType="default"
+            nz-popconfirm
+            nzPopconfirmTitle="Bạn có chắc muốn xóa?"
+            nzOkText="Đồng ý"
+            nzCancelText="Hủy"
+            (nzOnConfirm)="confirm(data._id)"
+          >
+            Xóa
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="{{ currentData ? 'Sửa' : 'Thêm' }} tác giả"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+  [nzMaskClosable]="false"
+  [nzOkDisabled]="!authorForm.valid"
+  nzOkText="Lưu lại"
+>
+  <div *nzModalContent>
+    <form
+      [nzLayout]="'vertical'"
+      [formGroup]="authorForm"
+      (ngSubmit)="onSubmit()"
+      nz-form
+    >
+      <nz-form-item>
+        <nz-form-label>Tên thể loại</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="text" formControlName="name" />
+        </nz-form-control>
+        <app-validator [field]="authorForm.get('name')"></app-validator>
+      </nz-form-item>
+      <nz-form-item>
+        <label nz-checkbox formControlName="status">Hoạt động</label>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-modal>

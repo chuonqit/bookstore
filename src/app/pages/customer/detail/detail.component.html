@@ -1,0 +1,91 @@
+<div class="container">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a routerLink="/">Trang chủ</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/categories">Thể loại</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{ nameAscii }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+  <div class="c-page-content">
+    <div class="detail-container">
+      <div class="detail-image">
+        <img src="https://picsum.photos/350/500" alt="" />
+      </div>
+      <div class="detail-content">
+        <h2 class="detail-title">Title name</h2>
+        <span class="detail-description">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos
+          sapiente tempore ipsum minima aliquid perspiciatis, voluptatem aut
+          magnam, porro enim cupiditate itaque eligendi cumque sit voluptate
+          quis culpa soluta saepe? Lorem ipsum dolor sit amet consectetur,
+          adipisicing elit. Quos sapiente tempore ipsum minima aliquid
+          perspiciatis, voluptatem aut magnam, porro enim cupiditate itaque
+          eligendi cumque sit voluptate quis culpa soluta saepe? Lorem ipsum
+          dolor sit amet consectetur, adipisicing elit. Quos sapiente tempore
+          ipsum minima aliquid perspiciatis, voluptatem aut magnam, porro enim
+          cupiditate itaque eligendi cumque sit voluptate quis culpa soluta
+          saepe?
+        </span>
+        <div class="detail-info">
+          <div class="detail-info--author">
+            <h3>Tác giả</h3>
+            <span>Chuong kieu</span>
+          </div>
+          <div class="detail-info--publisher">
+            <h3>Nhà xuất bản</h3>
+            <span>Bookstore</span>
+          </div>
+          <div class="detail-info--year">
+            <h3>Năm sẳn xuất</h3>
+            <span>2022</span>
+          </div>
+        </div>
+        <div class="detail-price">
+          <div class="detail-price-new">$200</div>
+          <div class="detail-price-old">$210</div>
+        </div>
+        <div class="detail-button">
+          <div class="detail-button-quantity">
+            <button
+              [disabled]="this.quantity <= 1"
+              (click)="quantityDecrease()"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              [(ngModel)]="quantity"
+              #ctrl="ngModel"
+              name="quantity"
+            />
+            <button (click)="quantityIncrease()">+</button>
+          </div>
+          <button>Thêm vào giỏ hàng</button>
+        </div>
+      </div>
+    </div>
+
+    <nz-tabset class="detail-tab">
+      <nz-tab nzTitle="Thông tin chi tiết">
+        <ul>
+          <li>
+            <div class="title">Title</div>
+            <div class="content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
+              vitae ducimus excepturi cum quasi temporibus eos quibusdam
+              deserunt nisi facilis, aperiam perspiciatis aliquam molestiae iste
+              odio possimus amet id expedita.
+            </div>
+          </li>
+          <li>
+            <div class="title">Title</div>
+            <div class="content">Content</div>
+          </li>
+        </ul>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>

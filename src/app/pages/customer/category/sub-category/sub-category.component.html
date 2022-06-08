@@ -1,0 +1,21 @@
+<div class="container">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a routerLink="/">Trang chủ</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/categories">Thể loại</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/categories/{{ category?.nameAscii }}">
+        {{ category?.name }}
+      </a>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+  <div class="c-page-content">
+    <app-category-filter (filter)="filter = $event">
+      <app-book-list></app-book-list>
+    </app-category-filter>
+  </div>
+</div>

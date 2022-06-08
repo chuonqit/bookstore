@@ -1,0 +1,36 @@
+<nz-card>
+  <div class="button-group">
+    <a routerLink="/manager/categories" nz-button nzType="default">
+      Danh sách thể loại
+    </a>
+  </div>
+  <nz-divider nzType="horizontal"></nz-divider>
+  <form
+    [nzLayout]="'vertical'"
+    (ngSubmit)="onSubmit()"
+    [formGroup]="categoryForm"
+    nz-form
+  >
+    <nz-form-item>
+      <nz-form-label>Tên thể loại</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="text" formControlName="name" />
+      </nz-form-control>
+      <app-validator
+        [field]="categoryForm.get('name')"
+        patternMessage="Email không đúng định dạng"
+      ></app-validator>
+    </nz-form-item>
+    <nz-form-item>
+      <label nz-checkbox formControlName="status">Hiển thị</label>
+    </nz-form-item>
+    <button
+      nz-button
+      nzType="primary"
+      type="submit"
+      [disabled]="!categoryForm.valid"
+    >
+      Lưu lại
+    </button>
+  </form>
+</nz-card>

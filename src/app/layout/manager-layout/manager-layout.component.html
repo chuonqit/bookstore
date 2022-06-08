@@ -1,0 +1,90 @@
+<nz-layout class="manager-layout">
+  <nz-sider
+    [(nzCollapsed)]="isCollapsed"
+    nzCollapsible
+    [nzWidth]="300"
+    nzBreakpoint="lg"
+    [nzCollapsedWidth]="60"
+    [nzTrigger]="null"
+    nzTheme="light"
+  >
+    <ul nz-menu nzTheme="light" nzMode="inline">
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+        <a routerLink="/manager/dashboard">
+          <i nz-icon nzType="appstore"></i>
+          <span>Trang chủ</span>
+        </a>
+      </li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+        <a routerLink="/manager/books">
+          <i nz-icon nzType="book" nzTheme="outline"></i>
+          <span>Quản lí sách</span>
+        </a>
+      </li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+        <a routerLink="/manager/categories">
+          <i nz-icon nzType="reconciliation"></i>
+          <span>Quản lí thể loại</span>
+        </a>
+      </li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+        <a routerLink="/manager/author">
+          <i nz-icon nzType="audit" nzTheme="outline"></i>
+          <span>Quản lí tác giả</span>
+        </a>
+      </li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+        <a routerLink="/manager/publisher">
+          <i nz-icon nzType="copyright" nzTheme="outline"></i>
+          <span>Quản lí nhà sản xuất</span>
+        </a>
+      </li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+        <a routerLink="/manager/users">
+          <i nz-icon nzType="user"></i>
+          <span>Quản lí tài khoản</span>
+        </a>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout class="manager-right" [class.collapse]="isCollapsed">
+    <nz-header [class.collapse]="isCollapsed">
+      <div class="left-header">
+        <i
+          nz-icon
+          class="trigger"
+          [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          (click)="isCollapsed = !isCollapsed"
+        ></i>
+        <div class="logo">Quản lí cửa hàng</div>
+      </div>
+      <div class="right-header">
+        <div></div>
+        <nz-button-group>
+          <button nz-button>{{ currentUser?.name }}</button>
+          <button
+            nz-button
+            nz-dropdown
+            nzTrigger="click"
+            [nzDropdownMenu]="menu2"
+            nzPlacement="bottomRight"
+          >
+            <i nz-icon nzType="user"></i>
+          </button>
+        </nz-button-group>
+      </div>
+    </nz-header>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+
+<nz-dropdown-menu #menu2="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="logout()">
+      <a routerLink="/" style="color: #212121">Cửa hàng</a>
+    </li>
+    <li nz-menu-item (click)="logout()">Đăng xuất</li>
+  </ul>
+</nz-dropdown-menu>

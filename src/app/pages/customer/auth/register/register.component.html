@@ -1,0 +1,79 @@
+<div class="container">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a routerLink="/">Trang chủ</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/register">Đăng ký</a>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+  <div class="c-page-content">
+    <div class="auth-wrapper">
+      <h1>Đăng ký tài khoản</h1>
+      <form
+        [nzLayout]="'vertical'"
+        (ngSubmit)="onSubmit()"
+        [formGroup]="registerForm"
+        nz-form
+      >
+        <nz-form-item>
+          <nz-form-label nzRequired>Họ và tên</nz-form-label>
+          <nz-form-control>
+            <input nz-input type="text" nzSize="large" formControlName="name" />
+          </nz-form-control>
+          <app-validator [field]="registerForm.get('name')"></app-validator>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Địa chỉ email</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="email"
+              nzSize="large"
+              formControlName="email"
+            />
+          </nz-form-control>
+          <app-validator
+            [field]="registerForm.get('email')"
+            patternMessage="Email không đúng định dạng"
+          ></app-validator>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Mật khẩu</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="password"
+              nzSize="large"
+              formControlName="password"
+            />
+          </nz-form-control>
+          <app-validator [field]="registerForm.get('password')"></app-validator>
+        </nz-form-item>
+        <nz-form-item>
+          <button
+            nz-button
+            nzType="primary"
+            type="submit"
+            style="font-weight: 800"
+            nzSize="large"
+            [disabled]="!registerForm.valid"
+          >
+            Đăng ký
+          </button>
+        </nz-form-item>
+        <nz-form-item>
+          <a
+            routerLink="/login"
+            nz-button
+            style="font-weight: 800"
+            nzSize="large"
+          >
+            Đăng nhập ngay
+          </a>
+        </nz-form-item>
+      </form>
+    </div>
+  </div>
+</div>

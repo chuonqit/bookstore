@@ -1,0 +1,85 @@
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "swiper/scss/pagination";
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+}
+
+.container {
+  max-width: 1530px;
+  min-width: 1530px;
+  padding: 0 15px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+.ant-breadcrumb-link {
+  & a:hover {
+    color: #242f9b;
+  }
+}
+
+.c-page-content {
+  margin-top: 20px;
+}
+
+.detail-tab {
+  & .ant-tabs-tab {
+    user-select: none;
+    font-size: 30px !important;
+    font-weight: 800;
+    & .ant-tabs-tab-btn {
+      color: #888;
+    }
+    &.ant-tabs-tab-active .ant-tabs-tab-btn {
+      color: #212121;
+    }
+  }
+
+  & .ant-tabs-ink-bar {
+    display: none;
+  }
+
+  & .ant-tabs-nav::before {
+    border-bottom: 0 !important;
+  }
+}
+
+.auth-wrapper {
+  width: 630px;
+  padding: 30px 30px;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  margin: 50px auto;
+}
+
+.m-container {
+  padding: 24px;
+  background: #fff;
+  min-height: 360px;
+  height: 10000px;
+}
+
+.button-group [nz-button] {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}

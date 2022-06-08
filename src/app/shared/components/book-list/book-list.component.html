@@ -1,0 +1,16 @@
+<div class="book-list" [style.--column]="col">
+  <div class="book-list-item" *ngFor="let book of books">
+    <a routerLink="/" class="book-list-item--image">
+      <img src="{{ book.image }}" alt="{{ book.name }}" />
+    </a>
+    <div class="book-list-item--content">
+      <a routerLink="/" class="book-list-item-content-title">{{ book.name }}</a>
+      <div class="book-list-item-content-category">
+        <a routerLink="/">{{ book.category }}</a>
+      </div>
+      <div class="book-list-item-content-button">
+        <button>Add to cart</button>
+      </div>
+    </div>
+  </div>
+</div>

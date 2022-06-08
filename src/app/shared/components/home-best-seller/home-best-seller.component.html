@@ -1,0 +1,32 @@
+<div class="c-home--best-seller">
+  <h2 class="main-title">Có thể bạn thích</h2>
+  <swiper
+    [slidesPerView]="1"
+    [loop]="true"
+    [autoplay]="{
+      delay: 5000
+    }"
+    [navigation]="true"
+    class="c-home--banner"
+  >
+    <ng-template swiperSlide *ngFor="let item of bestSellers">
+      <div
+        class="background"
+        style="
+          background-image: url('{{ item.image }}');
+        "
+      ></div>
+      <a routerLink="/products/sach-slug" class="box-image">
+        <img src="{{ item.image }}" alt="" />
+      </a>
+      <div class="title">
+        <strong>{{ item.name }}</strong>
+        <span>{{ item.category }}</span>
+      </div>
+      <div class="price">
+        <div class="price-new">${{ item.newPrice }}</div>
+        <div class="price-old">${{ item.price }}</div>
+      </div>
+    </ng-template>
+  </swiper>
+</div>

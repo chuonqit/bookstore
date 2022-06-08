@@ -1,0 +1,102 @@
+<div class="c-header">
+  <div class="c-header--wrapper">
+    <div class="container">
+      <a routerLink="/" class="c-header--logo">
+        <img
+          alt="bookstore"
+          src="/assets/images/bookstore.png"
+          class="c-header--logo__image"
+        />
+      </a>
+      <div class="c-header--search">
+        <form
+          #search="ngForm"
+          (ngSubmit)="onSearch(search)"
+          class="c-header--search__form"
+        >
+          <input
+            type="text"
+            name="keyword"
+            ngModel
+            placeholder="Nhập tên sách cần tìm kiếm..."
+          />
+          <button>
+            <i nz-icon nzType="search" nzTheme="outline"></i>
+          </button>
+        </form>
+      </div>
+      <div class="c-header--actions" *ngIf="!currentUser; else logger">
+        <div class="c-header--actions">
+          <a
+            routerLink="/register"
+            class="c-header--actions__link light-indigo"
+          >
+            Đăng ký
+          </a>
+          <a routerLink="/login" class="c-header--actions__link dark-indigo">
+            Đăng nhập
+          </a>
+        </div>
+      </div>
+      <ng-template #logger>
+        <div class="c-header--actions">
+          <nz-badge [nzCount]="5" [nzOverflowCount]="9">
+            <a
+              routerLink="/shopping-cart"
+              class="c-header--actions__link default"
+            >
+              Giỏ hàng
+            </a>
+          </nz-badge>
+          <div>
+            <button
+              class="c-header--actions__link image"
+              nz-dropdown
+              nzTrigger="click"
+              [nzDropdownMenu]="menu"
+            >
+              <img src="/assets/images/avatar-default.jpg" alt="" />
+            </button>
+
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item>{{ currentUser?.name }}</li>
+                <li nz-menu-item *ngIf="currentUser?.isAdmin">
+                  <a routerLink="/manager" style="color: #212121">
+                    Trang quản trị
+                  </a>
+                </li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item (click)="logout()">Đăng xuất</li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<div class="category-header">
+  <div class="container">
+    <swiper [slidesPerView]="8" [spaceBetween]="5">
+      <ng-template swiperSlide>
+        <a
+          routerLink="/categories"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span>Thể loại</span>
+        </a>
+      </ng-template>
+      <ng-template swiperSlide *ngFor="let category of categories">
+        <a
+          routerLink="/categories/{{ category.nameAscii }}"
+          routerLinkActive="active"
+        >
+          <span>{{ category.name }}</span>
+        </a>
+      </ng-template>
+    </swiper>
+  </div>
+</div>

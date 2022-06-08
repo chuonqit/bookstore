@@ -1,0 +1,72 @@
+<div class="container">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a routerLink="/">Trang chủ</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/login">Đăng nhập</a>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+  <div class="c-page-content">
+    <div class="auth-wrapper">
+      <h1>Đăng nhập</h1>
+      <form
+        [nzLayout]="'vertical'"
+        (ngSubmit)="onSubmit()"
+        [formGroup]="loginForm"
+        nz-form
+      >
+        <nz-form-item>
+          <nz-form-label nzRequired>Địa chỉ email</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="email"
+              nzSize="large"
+              formControlName="email"
+            />
+          </nz-form-control>
+          <app-validator
+            [field]="loginForm.get('email')"
+            patternMessage="Email không đúng định dạng"
+          ></app-validator>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Mật khẩu</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="password"
+              nzSize="large"
+              formControlName="password"
+            />
+          </nz-form-control>
+          <app-validator [field]="loginForm.get('password')"></app-validator>
+        </nz-form-item>
+        <nz-form-item>
+          <button
+            nz-button
+            nzType="primary"
+            type="submit"
+            style="font-weight: 800"
+            nzSize="large"
+            [disabled]="!loginForm.valid"
+          >
+            Đăng nhập
+          </button>
+        </nz-form-item>
+        <nz-form-item>
+          <a
+            routerLink="/register"
+            nz-button
+            style="font-weight: 800"
+            nzSize="large"
+          >
+            Đăng ký ngay
+          </a>
+        </nz-form-item>
+      </form>
+    </div>
+  </div>
+</div>
