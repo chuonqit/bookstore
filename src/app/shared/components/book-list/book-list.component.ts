@@ -1,4 +1,9 @@
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { IUser } from './../../models/User.model';
+import { AuthService } from './../../services/auth.service';
+import { IBook } from './../../models/Books.model';
 import { Component, Input, OnInit } from '@angular/core';
+import { ICartUser } from '../../models/User.model';
 
 @Component({
   selector: 'app-book-list',
@@ -6,29 +11,71 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./book-list.component.scss'],
 })
 export class BookListComponent implements OnInit {
-  @Input('data') books: any[];
+  @Input('data') books?: IBook[];
   @Input('col') col: number;
+  @Input('name') title: string;
+  cart!: ICartUser;
+  currentUser!: IUser | null;
 
-  constructor() {
+  constructor(
+    private authService: AuthService,
+    private message: NzMessageService
+  ) {
     this.books = [];
     this.col = 4;
+    this.title = '';
+    this.currentUser = null;
+  }
+
+  addCart(book: IBook) {
+    let booksCart: any[] = [];
+
+    if (this.cart?.books) {
+      booksCart = booksCart.concat(this.cart?.books);
+    }
+
+    const checkExist = booksCart.find((x) => x.book._id == book._id);
+
+    if (checkExist) {
+      booksCart = booksCart.map((x) => {
+        if (x.book._id == book._id) {
+          x.quantity++;
+        }
+        return x;
+      });
+    } else {
+      booksCart.push({
+        book: book,
+        quantity: 1,
+      });
+    }
+
+    const total = booksCart.reduce((total: any, current: any) => {
+      return total + current.price;
+    }, 0);
+
+    this.authService
+      .add_cart({
+        user: this.currentUser?._id,
+        books: booksCart,
+        total: total,
+      })
+      .subscribe((response) => {
+        this.getCartData();
+        this.message.success('Thêm vào giỏ hàng thành công');
+      });
+  }
+
+  getCartData() {
+    this.authService.get_cart(this.currentUser?._id).subscribe((response) => {
+      this.cart = response;
+    });
   }
 
   ngOnInit(): void {
-    this.books = this.randomData();
-  }
-
-  randomData() {
-    let data: any[] = [];
-    for (let i = 1; i < Math.floor(Math.random() * 10) + 3; i++) {
-      data.push({
-        name: 'Name title ' + i,
-        category: 'Category ' + i,
-        image: 'https://picsum.photos/200/300?random=' + i,
-        price: 50 * (i * i),
-        newPrice: 50 * (i * i) - i * 10,
-      });
-    }
-    return data;
+    this.authService.currentUser.subscribe((response) => {
+      this.currentUser = response;
+    });
+    this.getCartData();
   }
 }

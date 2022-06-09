@@ -1,3 +1,4 @@
+import { IBook } from './Books.model';
 export interface IUser {
   _id: string;
   name: string;
@@ -22,4 +23,14 @@ export interface IRegister {
   name: string;
   email: string;
   password: string;
+}
+
+export interface ICartUser {
+  user?: string;
+  books: {
+    book: IBook;
+    quantity: number;
+    price: number;
+  }[];
+  total: number;
 }

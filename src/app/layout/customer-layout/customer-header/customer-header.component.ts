@@ -18,6 +18,7 @@ SwiperCore.use([]);
 export class CustomerHeaderComponent implements OnInit {
   categories: ICategory[];
   currentUser: IUser | null;
+  cartTotal: number;
   keyword: string;
 
   constructor(
@@ -30,6 +31,7 @@ export class CustomerHeaderComponent implements OnInit {
     this.categories = [];
     this.currentUser = null;
     this.keyword = '';
+    this.cartTotal = 0;
   }
 
   logout() {
@@ -39,11 +41,15 @@ export class CustomerHeaderComponent implements OnInit {
   }
 
   onSearch(form: NgForm) {
-    this.router$.navigate(['/search'], {
-      queryParams: {
-        q: form.value.keyword,
-      },
-    });
+    if (form.valid) {
+      this.router$.navigate(['/search'], {
+        queryParams: {
+          q: form.value.keyword,
+        },
+      });
+    } else {
+      this.message.error('Vui lòng nhập từ khóa tìm kiếm');
+    }
   }
 
   ngOnInit(): void {
@@ -52,6 +58,13 @@ export class CustomerHeaderComponent implements OnInit {
     });
     this.authService.currentUser.subscribe((response) => {
       this.currentUser = response;
+    });
+    this.authService.cartTotal.subscribe((response) => {
+      this.cartTotal = response;
+      console.log(response);
+    });
+    this.authService.get_cart(this.currentUser?._id).subscribe((response) => {
+      this.cartTotal = response.books.length;
     });
   }
 }

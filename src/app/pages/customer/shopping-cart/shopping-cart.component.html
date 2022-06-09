@@ -8,5 +8,99 @@
     </nz-breadcrumb-item>
   </nz-breadcrumb>
 
-  <p>shopping-cart works!</p>
+  <div style="margin-top: 15px">
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="16">
+        <nz-list nzBordered>
+          <nz-list-item
+            style="padding: 12px 6px"
+            *ngFor="let item of cart?.books; let i = index"
+          >
+            <div nz-col nzSpan="4">
+              <a routerLink="/products/{{ item.book.nameAscii }}">
+                <nz-avatar
+                  [nzShape]="'square'"
+                  [nzSize]="150"
+                  style="height: 200px"
+                  [nzSrc]="item.book.image"
+                ></nz-avatar
+              ></a>
+            </div>
+            <div nz-col nzSpan="8" class="cart-content-text">
+              <h2>
+                <a
+                  routerLink="/products/{{ item.book.nameAscii }}"
+                  style="color: #212121"
+                >
+                  {{ item.book.name }}
+                </a>
+              </h2>
+              <p>
+                Giá gốc:
+                {{ item.book.price | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+              </p>
+              <p>
+                Giá khuyến mãi:
+                {{
+                  item.book.priceSale | currency: "đ":"symbol":"1.0-0":"vi-VN"
+                }}
+              </p>
+            </div>
+            <div nz-col nzSpan="5">
+              {{ item.price | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+            </div>
+            <div nz-col nzSpan="5">
+              <button nz-button (click)="decrease(i)">-</button>
+              <input
+                nz-input
+                #input
+                type="number"
+                class="cart-button-quantity"
+                [value]="item.quantity"
+                (change)="changeQuantity(input.value, i)"
+              />
+              <button nz-button (click)="increase(i)">+</button>
+            </div>
+            <div nz-col nzSpan="2">
+              <button nz-button (click)="removeItem(i)">Xóa</button>
+            </div>
+          </nz-list-item>
+          <nz-list-empty *ngIf="!cart?.books?.length"> sda </nz-list-empty>
+        </nz-list>
+      </div>
+      <div nz-col nzSpan="8">
+        <nz-list nzBordered>
+          <nz-list-item>
+            <strong>Tổng tiền:</strong>
+            {{ cart?.total | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+          </nz-list-item>
+          <nz-list-item>
+            <strong>Giảm giá:</strong>
+            {{ 0 | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+          </nz-list-item>
+          <nz-list-item>
+            <strong>Thành tiền:</strong>
+            {{ cart?.total | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+          </nz-list-item>
+        </nz-list>
+        <a
+          routerLink="/shopping-cart/checkout"
+          nz-button
+          nzType="primary"
+          nzSize="large"
+          style="width: 100%; margin-top: 10px"
+        >
+          Thanh toán
+        </a>
+        <a
+          routerLink="/"
+          nz-button
+          nzSize="large"
+          style="width: 100%; margin-top: 10px"
+        >
+          Tiếp tục mua sách
+        </a>
+      </div>
+    </div>
+  </div>
 </div>

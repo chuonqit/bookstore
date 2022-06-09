@@ -1,3 +1,5 @@
+import { BookService } from './../../../shared/services/book.service';
+import { IBook } from './../../../shared/models/Books.model';
 import { IPublisher } from './../../../shared/models/Publisher.model';
 import { PublisherService } from './../../../shared/services/publisher.service';
 import { AuthorService } from './../../../shared/services/author.service';
@@ -15,21 +17,36 @@ import { Title } from '@angular/platform-browser';
 export class CategoryComponent implements OnInit {
   publishers: IPublisher[];
   authors: IAuthor[];
-  filter: {
-    publisher: string;
-    author: string;
-  };
+  allBooks: IBook[];
+  books: IBook[];
 
-  constructor(private title$: Title) {
+  constructor(private title$: Title, private bookService: BookService) {
     this.publishers = [];
     this.authors = [];
-    this.filter = {
-      publisher: '',
-      author: '',
-    };
+    this.allBooks = [];
+    this.books = [];
+  }
+
+  filterData(filter: { publisher: string; author: string }) {
+    if (filter.author) {
+      this.books = this.allBooks.filter(
+        (book) => book.author._id === filter.author
+      );
+    } else if (filter.publisher) {
+      this.books = this.allBooks.filter(
+        (book) => book.publisher._id === filter.publisher
+      );
+    } else {
+      this.books = this.allBooks;
+    }
   }
 
   ngOnInit(): void {
     this.title$.setTitle('Thể loại');
+
+    this.bookService.list().subscribe((books) => {
+      this.allBooks = books;
+      this.books = books;
+    });
   }
 }

@@ -3,53 +3,65 @@
     <nz-breadcrumb-item>
       <a routerLink="/">Trang chủ</a>
     </nz-breadcrumb-item>
-    <nz-breadcrumb-item>
-      <a routerLink="/categories">Thể loại</a>
-    </nz-breadcrumb-item>
-    <nz-breadcrumb-item>{{ nameAscii }}</nz-breadcrumb-item>
+    <ng-container *ngFor="let category of book?.category">
+      <nz-breadcrumb-item *ngIf="category.status">
+        <a routerLink="/categories/{{ category.nameAscii }}">
+          {{ category.name }}
+        </a>
+      </nz-breadcrumb-item>
+    </ng-container>
+    <nz-breadcrumb-item>{{ book?.name }}</nz-breadcrumb-item>
   </nz-breadcrumb>
 
   <div class="c-page-content">
     <div class="detail-container">
       <div class="detail-image">
-        <img src="https://picsum.photos/350/500" alt="" />
+        <img src="{{ book?.image }}" alt="{{ book?.name }}" />
       </div>
       <div class="detail-content">
-        <h2 class="detail-title">Title name</h2>
-        <span class="detail-description">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos
-          sapiente tempore ipsum minima aliquid perspiciatis, voluptatem aut
-          magnam, porro enim cupiditate itaque eligendi cumque sit voluptate
-          quis culpa soluta saepe? Lorem ipsum dolor sit amet consectetur,
-          adipisicing elit. Quos sapiente tempore ipsum minima aliquid
-          perspiciatis, voluptatem aut magnam, porro enim cupiditate itaque
-          eligendi cumque sit voluptate quis culpa soluta saepe? Lorem ipsum
-          dolor sit amet consectetur, adipisicing elit. Quos sapiente tempore
-          ipsum minima aliquid perspiciatis, voluptatem aut magnam, porro enim
-          cupiditate itaque eligendi cumque sit voluptate quis culpa soluta
-          saepe?
+        <h2 class="detail-title">{{ book?.name }}</h2>
+        <span class="detail-description" style="white-space: pre-line">
+          {{ book?.description }}
         </span>
         <div class="detail-info">
           <div class="detail-info--author">
             <h3>Tác giả</h3>
-            <span>Chuong kieu</span>
+            <span>{{ book?.author?.name }}</span>
           </div>
           <div class="detail-info--publisher">
             <h3>Nhà xuất bản</h3>
-            <span>Bookstore</span>
+            <span>{{ book?.publisher?.name }}</span>
           </div>
           <div class="detail-info--year">
             <h3>Năm sẳn xuất</h3>
-            <span>2022</span>
+            <span>{{ book?.year }}</span>
           </div>
         </div>
-        <div class="detail-price">
-          <div class="detail-price-new">$200</div>
-          <div class="detail-price-old">$210</div>
+        <div *ngIf="book?.status">
+          <div
+            class="detail-price"
+            *ngIf="book?.priceSale && book?.priceSale != 0"
+          >
+            <div class="detail-price-new">
+              {{ book?.priceSale | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+            </div>
+            <div class="detail-price-old">
+              {{ book?.price | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+            </div>
+          </div>
+          <div
+            class="detail-price"
+            *ngIf="book?.priceSale && book?.priceSale == 0"
+          >
+            <div class="detail-price-new">
+              {{ book?.price | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+            </div>
+          </div>
         </div>
         <app-detail-button
           [quantity]="quantity"
           (add-cart)="addToCart($event)"
+          *ngIf="book?.status"
         ></app-detail-button>
       </div>
     </div>
@@ -58,17 +70,46 @@
       <nz-tab nzTitle="Thông tin chi tiết">
         <ul>
           <li>
-            <div class="title">Title</div>
+            <div class="title">Tên sách</div>
             <div class="content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
-              vitae ducimus excepturi cum quasi temporibus eos quibusdam
-              deserunt nisi facilis, aperiam perspiciatis aliquam molestiae iste
-              odio possimus amet id expedita.
+              {{ book?.name }}
             </div>
           </li>
           <li>
-            <div class="title">Title</div>
-            <div class="content">Content</div>
+            <div class="title">Thể loại</div>
+            <div class="content">
+              <span *ngFor="let category of book?.category">
+                {{ category.name }},
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="title">Tác giả</div>
+            <div class="content">
+              {{ book?.author?.name }}
+            </div>
+          </li>
+          <li>
+            <div class="title">Nhà xuất bản</div>
+            <div class="content">
+              {{ book?.publisher?.name }}
+            </div>
+          </li>
+          <li>
+            <div class="title">Năm xuất bản</div>
+            <div class="content" *ngIf="book?.status">
+              {{ book?.year }}
+            </div>
+          </li>
+          <li>
+            <div class="title">Số lượng hiện có</div>
+            <div class="content">{{ book?.stock }} cuốn</div>
+          </li>
+          <li>
+            <div class="title">Trạng thái</div>
+            <div class="content">
+              {{ book?.status ? "Đang bán" : "Ngừng bán" }}
+            </div>
           </li>
         </ul>
       </nz-tab>

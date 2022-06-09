@@ -1,3 +1,4 @@
+import { IBook } from './../../models/Books.model';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 import SwiperCore, { Autoplay, Navigation } from 'swiper';
@@ -14,23 +15,9 @@ SwiperCore.use([Autoplay, Navigation]);
   encapsulation: ViewEncapsulation.None,
 })
 export class HomeBestSellerComponent {
-  @Input('data') bestSellers: any[];
+  @Input('data') bestSellers?: IBook[];
 
   constructor() {
-    this.bestSellers = this.randomData();
-  }
-
-  randomData() {
-    let data: any[] = [];
-    for (let i = 1; i < Math.floor(Math.random() * 10) + 3; i++) {
-      data.push({
-        name: 'Name title ' + i,
-        category: 'Category ' + i + ', Category ' + i + 1,
-        image: 'https://picsum.photos/200/300?random=' + i,
-        price: 50 * (i * i),
-        newPrice: 50 * (i * i) - i * 10,
-      });
-    }
-    return data;
+    this.bestSellers = [];
   }
 }

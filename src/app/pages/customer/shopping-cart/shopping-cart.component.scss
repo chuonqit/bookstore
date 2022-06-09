@@ -1,0 +1,24 @@
+.cart-button-quantity {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  width: 70px;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.cart-content-text {
+  & h2 {
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+}

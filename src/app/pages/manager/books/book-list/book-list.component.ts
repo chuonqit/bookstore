@@ -1,3 +1,5 @@
+import { IBook } from './../../../../shared/models/Books.model';
+import { BookService } from './../../../../shared/services/book.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Component, OnInit } from '@angular/core';
 
@@ -14,33 +16,75 @@ interface Person {
   styleUrls: ['./book-list.component.scss'],
 })
 export class BookListComponent implements OnInit {
-  listOfData: Person[];
-  constructor(private nzMessageService: NzMessageService) {
-    this.listOfData = [
-      {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-      },
-      {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-      },
-      {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-      },
-    ];
+  books: IBook[];
+  constructor(
+    private nzMessageService: NzMessageService,
+    private bookService: BookService
+  ) {
+    this.books = [];
   }
 
-  confirm(name: string): void {
-    this.nzMessageService.success('Delete ' + name);
+  confirm(id: string): void {
+    this.bookService.delete(id).subscribe(
+      () => {
+        const filtered = this.books.filter((book) => book._id !== id);
+        this.books = [...filtered];
+        this.nzMessageService.success('Xóa thành công');
+      },
+      (error) => {
+        this.nzMessageService.error(error.error);
+      }
+    );
   }
 
-  ngOnInit(): void {}
+  changeStatus(id: string, status: boolean): void {
+    this.bookService.update_status(id, status).subscribe(
+      () => {
+        this.nzMessageService.success('Thay đổi trạng thái thành công');
+        this.getList();
+      },
+      (error) => {
+        this.nzMessageService.error(error.error);
+      }
+    );
+  }
+
+  changeFeatured(id: string, featured: boolean): void {
+    this.bookService.update_featured(id, featured).subscribe(
+      () => {
+        this.nzMessageService.success('Thay đổi nổi bật thành công');
+        this.getList();
+      },
+      (error) => {
+        this.nzMessageService.error(error.error);
+      }
+    );
+  }
+
+  changePin(id: string, pin: boolean): void {
+    this.bookService.update_pin(id, pin).subscribe(
+      () => {
+        this.nzMessageService.success('Thay đổi ghim thành công');
+        this.getList();
+      },
+      (error) => {
+        this.nzMessageService.error(error.error);
+      }
+    );
+  }
+
+  ngOnInit(): void {
+    this.getList();
+  }
+
+  getList() {
+    this.bookService.list().subscribe(
+      (books) => {
+        this.books = books;
+      },
+      (error) => {
+        this.nzMessageService.error(error.error);
+      }
+    );
+  }
 }

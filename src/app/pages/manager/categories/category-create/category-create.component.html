@@ -16,10 +16,7 @@
       <nz-form-control>
         <input nz-input type="text" formControlName="name" />
       </nz-form-control>
-      <app-validator
-        [field]="categoryForm.get('name')"
-        patternMessage="Email không đúng định dạng"
-      ></app-validator>
+      <app-validator [field]="categoryForm.get('name')"></app-validator>
     </nz-form-item>
     <nz-form-item>
       <label nz-checkbox formControlName="status">Hiển thị</label>

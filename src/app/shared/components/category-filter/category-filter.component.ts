@@ -37,7 +37,7 @@ export class CategoryFilterComponent implements OnInit {
 
   fillterPublisher(id: string) {
     this.params = {
-      ...this.params,
+      author: '',
       publisher: id,
     };
     this.filter.emit(this.params);
@@ -45,7 +45,7 @@ export class CategoryFilterComponent implements OnInit {
 
   fillterAuthor(id: string) {
     this.params = {
-      ...this.params,
+      publisher: '',
       author: id,
     };
     this.filter.emit(this.params);

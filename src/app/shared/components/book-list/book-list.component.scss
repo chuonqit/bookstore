@@ -1,7 +1,12 @@
 .book-list {
   display: grid;
-  grid-template-columns: repeat(var(--column), 1fr);
+  grid-template-columns: repeat(var(--column), minmax(0, 1fr));
   gap: 24px;
+
+  &-title {
+    font-size: 30px;
+    font-weight: 900;
+  }
 
   &-item {
     border: 1px solid #f0f0f0;
@@ -64,9 +69,13 @@
           color: #fff;
           font-weight: 700;
           height: 45px;
-          line-height: 45px;
           text-align: center;
           cursor: pointer;
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: default;
+          }
         }
       }
     }

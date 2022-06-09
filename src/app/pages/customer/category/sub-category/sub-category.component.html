@@ -14,8 +14,8 @@
   </nz-breadcrumb>
 
   <div class="c-page-content">
-    <app-category-filter (filter)="filter = $event">
-      <app-book-list></app-book-list>
+    <app-category-filter (filter)="filterData($event)">
+      <app-book-list [col]="4" [data]="books"></app-book-list>
     </app-category-filter>
   </div>
 </div>

@@ -8,6 +8,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ActionsComponent {
   @Input('currentUser') currentUser: IUser | null = null;
+  @Input('cartTotal') cartTotal: number = 0;
   @Output('logout') onLogout: EventEmitter<any> = new EventEmitter();
 
   logout() {

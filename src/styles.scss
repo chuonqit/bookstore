@@ -83,3 +83,9 @@ textarea {
   margin-right: 8px;
   margin-bottom: 12px;
 }
+
+.ant-table-content {
+  th {
+    font-weight: bold !important;
+  }
+}

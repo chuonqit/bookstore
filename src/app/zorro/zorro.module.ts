@@ -17,6 +17,12 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzListModule } from 'ng-zorro-antd/list';
 
 @NgModule({
   exports: [
@@ -38,6 +44,12 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
     NzCheckboxModule,
     NzModalModule,
     NzBadgeModule,
+    NzGridModule,
+    NzInputNumberModule,
+    NzUploadModule,
+    NzSelectModule,
+    NzAvatarModule,
+    NzListModule,
   ],
 })
 export class ZorroModule {}

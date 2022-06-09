@@ -4,23 +4,92 @@
       Thêm sách mới
     </a>
   </div>
-  <nz-table #basicTable [nzData]="listOfData">
+  <nz-divider nzType="horizontal"></nz-divider>
+  <nz-table
+    #booksTable
+    [nzData]="books"
+    [nzPageSize]="8"
+    [nzScroll]="{ x: '2000px' }"
+  >
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Address</th>
-        <th>Action</th>
+        <th nzWidth="130px">Hình ảnh</th>
+        <th>Tên sách</th>
+        <th nzWidth="150px">Giá tiền</th>
+        <th nzWidth="150px">Giá khuyến mãi</th>
+        <th>Thể loại</th>
+        <th nzWidth="170px">Số lượng trong kho</th>
+        <th>Tác giả</th>
+        <th nzWidth="150px">Nhà xuất bản</th>
+        <th nzWidth="150px">Năm xuất bản</th>
+        <th nzWidth="150px" nzRight>Trạng thái</th>
+        <th nzWidth="150px" nzRight>Nổi bật</th>
+        <th nzWidth="150px" nzRight>Ghim</th>
+        <th nzRight nzWidth="80px"></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data">
-        <td>{{ data.name }}</td>
-        <td>{{ data.age }}</td>
-        <td>{{ data.address }}</td>
+      <tr *ngFor="let data of booksTable.data">
         <td>
-          <button nz-button nzType="default">Sửa</button>
-          <nz-divider nzType="vertical"></nz-divider>
+          <nz-avatar
+            [nzSrc]="data.image"
+            [nzSize]="100"
+            nzShape="square"
+          ></nz-avatar>
+        </td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.price | currency: "đ":"symbol":"1.0-0":"vi-VN" }}</td>
+        <td>{{ data.priceSale | currency: "đ":"symbol":"1.0-0":"vi-VN" }}</td>
+        <td>
+          <nz-tag
+            style="cursor: pointer"
+            nzColor="default"
+            *ngFor="let category of data.category"
+            style="margin-bottom: 5px"
+          >
+            {{ category.name }}
+          </nz-tag>
+        </td>
+        <td>{{ data.stock }}</td>
+        <td>{{ data.author.name }}</td>
+        <td>{{ data.publisher.name }}</td>
+        <td>{{ data.year }}</td>
+        <td nzRight>
+          <nz-tag
+            style="cursor: pointer"
+            [nzColor]="data.status ? 'success' : 'default'"
+            (click)="changeStatus(data._id, data.status)"
+          >
+            {{ data.status ? "Đang bán" : "Ngừng bán" }}
+          </nz-tag>
+        </td>
+        <td nzRight>
+          <nz-tag
+            style="cursor: pointer"
+            [nzColor]="data.featured ? 'cyan' : 'default'"
+            (click)="changeFeatured(data._id, data.featured)"
+          >
+            {{ data.featured ? "Nổi bật" : "Không nổi bật" }}
+          </nz-tag>
+        </td>
+        <td nzRight>
+          <nz-tag
+            style="cursor: pointer"
+            [nzColor]="data.pin ? 'geekblue' : 'default'"
+            (click)="changePin(data._id, data.pin)"
+          >
+            {{ data.pin ? "Ghim" : "Chưa ghim" }}
+          </nz-tag>
+        </td>
+        <td nzRight>
+          <a
+            routerLink="/manager/books/update/{{ data._id }}"
+            nz-button
+            nzType="default"
+            style="margin-bottom: 5px; margin-right: 5px"
+          >
+            Sửa
+          </a>
           <button
             nz-button
             nzType="default"
@@ -28,7 +97,7 @@
             nzPopconfirmTitle="Bạn có chắc muốn xóa?"
             nzOkText="Đồng ý"
             nzCancelText="Hủy"
-            (nzOnConfirm)="confirm(data.name)"
+            (nzOnConfirm)="confirm(data._id)"
           >
             Xóa
           </button>

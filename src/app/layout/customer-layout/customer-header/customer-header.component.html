@@ -18,6 +18,7 @@
             type="text"
             name="keyword"
             ngModel
+            required
             placeholder="Nhập tên sách cần tìm kiếm..."
           />
           <button>
@@ -28,6 +29,7 @@
       <app-actions
         [currentUser]="currentUser"
         (logout)="logout()"
+        [cartTotal]="cartTotal"
       ></app-actions>
     </div>
   </div>

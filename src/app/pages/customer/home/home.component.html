@@ -1,12 +1,26 @@
 <div class="container">
   <div class="top-content">
     <app-home-banner></app-home-banner>
-    <app-home-best-seller></app-home-best-seller>
+    <app-home-best-seller [data]="homeData?.booksPin"></app-home-best-seller>
   </div>
   <app-special-offer
     mainTitle="Sách nổi bật"
     [cssMode]="true"
     [navigation]="false"
+    [data]="homeData?.booksFeatured"
   ></app-special-offer>
-  <app-special-offer mainTitle="Sách mới"></app-special-offer>
+  <app-special-offer
+    mainTitle="Sách mới"
+    [data]="homeData?.booksNew"
+  ></app-special-offer>
+  <div>
+    <app-book-list
+      [col]="5"
+      [data]="homeData?.books"
+      name="Bạn có thể xem"
+    ></app-book-list>
+    <div class="home-button-view-more" *ngIf="homeData?.books?.length! > 10">
+      <a routerLink="/categories">Xem thêm</a>
+    </div>
+  </div>
 </div>

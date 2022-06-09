@@ -1,11 +1,8 @@
-import { PublisherService } from './../../../../shared/services/publisher.service';
-import { AuthorService } from './../../../../shared/services/author.service';
-import { IAuthor } from './../../../../shared/models/Auhor.model';
-import { IPublisher } from './../../../../shared/models/Publisher.model';
+import { IBook } from './../../../../shared/models/Books.model';
 import { CategoryService } from './../../../../shared/services/category.service';
 import { ICategory } from './../../../../shared/models/Category.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -15,11 +12,9 @@ import { Title } from '@angular/platform-browser';
 })
 export class SubCategoryComponent implements OnInit {
   nameAscii: string;
+  books: IBook[];
+  allBooks: IBook[];
   category: ICategory | null;
-  filter: {
-    publisher: string;
-    author: string;
-  };
 
   constructor(
     private title$: Title,
@@ -29,12 +24,23 @@ export class SubCategoryComponent implements OnInit {
   ) {
     this.nameAscii = '';
     this.category = null;
+    this.books = [];
+    this.allBooks = [];
     this.router$.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
-    this.filter = {
-      publisher: '',
-      author: '',
-    };
+  filterData(filter: { publisher: string; author: string }) {
+    if (filter.author) {
+      this.books = this.allBooks.filter(
+        (book) => book.author._id === filter.author
+      );
+    } else if (filter.publisher) {
+      this.books = this.allBooks.filter(
+        (book) => book.publisher._id === filter.publisher
+      );
+    } else {
+      this.books = this.allBooks;
+    }
   }
 
   ngOnInit(): void {
@@ -45,7 +51,12 @@ export class SubCategoryComponent implements OnInit {
         .books_by_ascii(this.nameAscii)
         .subscribe((response) => {
           this.category = response.category;
+          this.allBooks = response.books;
+          this.books = response.books;
           this.title$.setTitle('Thể loại: ' + response.category.name);
+          if (!response.category.status) {
+            this.router$.navigateByUrl('/categories');
+          }
         });
     }
   }

@@ -4,3 +4,25 @@
   height: 600px;
   gap: 20px;
 }
+
+.home-button-view-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  width: 100%;
+  & a {
+    width: 300px;
+    border-radius: 6px;
+    border: 0;
+    background-color: #151c75;
+    color: #fff;
+    font-weight: 700;
+    height: 45px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
