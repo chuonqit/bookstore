@@ -11,5 +11,92 @@
     </nz-breadcrumb-item>
   </nz-breadcrumb>
 
-  <p>checkout works!</p>
+  <div style="margin-top: 15px">
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="16">
+        <nz-list nzBordered style="padding: 24px">
+          <form nz-form nzLayout="vertical" [formGroup]="orderForm">
+            <nz-form-item>
+              <nz-form-label>Họ và tên</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="name" />
+              </nz-form-control>
+              <app-validator [field]="orderForm.get('name')"></app-validator>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Email</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="email" />
+                <app-validator
+                  [field]="orderForm.get('email')"
+                  patternMessage="Email không đúng định dạng"
+                ></app-validator>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Số điện thoại</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="phone" />
+                <app-validator [field]="orderForm.get('phone')"></app-validator>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Địa chỉ</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="address" />
+                <app-validator
+                  [field]="orderForm.get('address')"
+                ></app-validator>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Ghi chú</nz-form-label>
+              <nz-form-control>
+                <textarea nz-input rows="7" formControlName="note"></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-list>
+      </div>
+      <div nz-col nzSpan="8">
+        <nz-list nzBordered>
+          <nz-list-item style="justify-content: flex-start; gap: 16px">
+            <strong style="width: 100px">Giỏ hàng:</strong>
+            <nz-list style="width: 100%">
+              <ng-container *ngFor="let item of cart?.books">
+                <nz-list-item *ngIf="item.quantity > 0">
+                  {{ item.book.name }}
+                  <strong>x{{ item.quantity }}</strong>
+                </nz-list-item>
+              </ng-container>
+            </nz-list>
+          </nz-list-item>
+          <nz-list-item>
+            <strong>Tổng tiền:</strong>
+            <h2 style="margin: 0">
+              {{ cart?.total | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+            </h2>
+          </nz-list-item>
+        </nz-list>
+        <button
+          nz-button
+          nzType="primary"
+          nzSize="large"
+          style="width: 100%; margin-top: 10px"
+          [disabled]="!orderForm.valid"
+          (click)="orderNow()"
+        >
+          Thanh toán
+        </button>
+        <a
+          routerLink="/shopping-cart"
+          nz-button
+          nzSize="large"
+          style="width: 100%; margin-top: 10px"
+        >
+          Giỏ hàng
+        </a>
+      </div>
+    </div>
+  </div>
 </div>

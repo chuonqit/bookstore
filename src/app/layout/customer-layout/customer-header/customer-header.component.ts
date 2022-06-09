@@ -61,7 +61,6 @@ export class CustomerHeaderComponent implements OnInit {
     });
     this.authService.cartTotal.subscribe((response) => {
       this.cartTotal = response;
-      console.log(response);
     });
     this.authService.get_cart(this.currentUser?._id).subscribe((response) => {
       this.cartTotal = response.books.length;

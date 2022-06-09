@@ -80,7 +80,9 @@
           </nz-list-item>
           <nz-list-item>
             <strong>Thành tiền:</strong>
-            {{ cart?.total | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+            <h2 style="margin: 0">
+              {{ cart?.total | currency: "đ":"symbol":"1.0-0":"vi-VN" }}
+            </h2>
           </nz-list-item>
         </nz-list>
         <a
