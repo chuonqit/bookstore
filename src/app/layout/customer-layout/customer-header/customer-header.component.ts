@@ -59,11 +59,13 @@ export class CustomerHeaderComponent implements OnInit {
     this.authService.currentUser.subscribe((response) => {
       this.currentUser = response;
     });
-    this.authService.cartTotal.subscribe((response) => {
-      this.cartTotal = response;
-    });
-    this.authService.get_cart(this.currentUser?._id).subscribe((response) => {
-      this.cartTotal = response.books.length;
-    });
+    if (this.currentUser) {
+      this.authService.cartTotal.subscribe((response) => {
+        this.cartTotal = response;
+      });
+      this.authService.get_cart(this.currentUser?._id).subscribe((response) => {
+        this.cartTotal = response.books.length;
+      });
+    }
   }
 }

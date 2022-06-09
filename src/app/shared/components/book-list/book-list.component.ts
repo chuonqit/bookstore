@@ -28,42 +28,46 @@ export class BookListComponent implements OnInit {
   }
 
   addCart(book: IBook) {
-    let booksCart: any[] = [];
+    if (this.currentUser) {
+      let booksCart: any[] = [];
 
-    if (this.cart?.books) {
-      booksCart = booksCart.concat(this.cart?.books);
-    }
+      if (this.cart?.books) {
+        booksCart = booksCart.concat(this.cart?.books);
+      }
 
-    const checkExist = booksCart.find((x) => x.book._id == book._id);
+      const checkExist = booksCart.find((x) => x.book._id == book._id);
 
-    if (checkExist) {
-      booksCart = booksCart.map((x) => {
-        if (x.book._id == book._id) {
-          x.quantity++;
-        }
-        return x;
-      });
+      if (checkExist) {
+        booksCart = booksCart.map((x) => {
+          if (x.book._id == book._id) {
+            x.quantity++;
+          }
+          return x;
+        });
+      } else {
+        booksCart.push({
+          book: book,
+          quantity: 1,
+        });
+      }
+
+      const total = booksCart.reduce((total: any, current: any) => {
+        return total + current.price;
+      }, 0);
+
+      this.authService
+        .add_cart({
+          user: this.currentUser?._id,
+          books: booksCart,
+          total: total,
+        })
+        .subscribe((response) => {
+          this.getCartData();
+          this.message.success('Thêm vào giỏ hàng thành công');
+        });
     } else {
-      booksCart.push({
-        book: book,
-        quantity: 1,
-      });
+      this.message.error('Vui lòng đăng nhập');
     }
-
-    const total = booksCart.reduce((total: any, current: any) => {
-      return total + current.price;
-    }, 0);
-
-    this.authService
-      .add_cart({
-        user: this.currentUser?._id,
-        books: booksCart,
-        total: total,
-      })
-      .subscribe((response) => {
-        this.getCartData();
-        this.message.success('Thêm vào giỏ hàng thành công');
-      });
   }
 
   getCartData() {
@@ -76,6 +80,8 @@ export class BookListComponent implements OnInit {
     this.authService.currentUser.subscribe((response) => {
       this.currentUser = response;
     });
-    this.getCartData();
+    if (this.currentUser) {
+      this.getCartData();
+    }
   }
 }
