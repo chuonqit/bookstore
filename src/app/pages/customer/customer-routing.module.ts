@@ -45,12 +45,10 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        canActivate: [LoginGuard],
         component: LoginComponent,
       },
       {
         path: 'register',
-        canActivate: [LoginGuard],
         component: RegisterComponent,
       },
       {
